@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "484557198837",
+    "firebase_url": "https://iflix-249c7.firebaseio.com",
+    "project_id": "iflix-249c7",
+    "storage_bucket": "iflix-249c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:484557198837:android:c3cf6f5c188b26b5",
+        "android_client_info": {
+          "package_name": "com.example.claro.iflix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "484557198837-8h9c7k0egd459rophr23h3b5iqg84ljj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.claro.iflix",
+            "certificate_hash": "4ead0104d84ff3176fecc250e1e392ffa078164b"
+          }
+        },
+        {
+          "client_id": "484557198837-j3g57uu860a8shn7i9uu1ejghqdbsa10.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1dqLb94cEzcliCNifNlHP0XFrP55mc5U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "484557198837-j3g57uu860a8shn7i9uu1ejghqdbsa10.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
