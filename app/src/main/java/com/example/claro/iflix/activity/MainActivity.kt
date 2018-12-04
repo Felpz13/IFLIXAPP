@@ -1,31 +1,36 @@
 package com.example.claro.iflix.activity
 
+import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
 import com.example.claro.iflix.model.Series
 import com.example.claro.iflix.R
 import com.example.claro.iflix.adapter.GeneroAdapter
-import com.example.claro.iflix.adapter.SeriesAdapter
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity()
 {
-    val dir = FirebaseDatabase.getInstance().reference
+    lateinit var dir : DatabaseReference
+    lateinit var listaSeries : MutableList<Series>
+    lateinit var adapter : GeneroAdapter
+
+
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
+
+        dir = FirebaseDatabase.getInstance().reference
+        listaSeries = mutableListOf()
+        adapter = GeneroAdapter(listaSeries,applicationContext)
+
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val listaSeries : MutableList<Series> = mutableListOf()
-        val adapter = GeneroAdapter(listaSeries,applicationContext)
 
         dir.addValueEventListener(object : ValueEventListener
         {
@@ -60,11 +65,12 @@ class MainActivity : AppCompatActivity()
             }
         })
 
+        RecyclerGeneros.visibility = View.INVISIBLE
+        progressBar2.visibility = View.VISIBLE
 
+        val task = AsyncTaskLista()
+        task.execute()
 
-        RecyclerGeneros.layoutManager = LinearLayoutManager(this)
-        RecyclerGeneros.setItemViewCacheSize(9)
-        RecyclerGeneros.adapter = adapter
     }
 
     fun imgAdapter (foto : String) : String
@@ -83,5 +89,28 @@ class MainActivity : AppCompatActivity()
         else if(foto == "Imagens/Capas/10.png") fotoUrl = "https://firebasestorage.googleapis.com/v0/b/iflix-249c7.appspot.com/o/10.png?alt=media&token=9ad3a0e8-f714-4f85-998a-99c38e6d7d9b"
 
         return fotoUrl
+    }
+
+    inner class AsyncTaskLista : AsyncTask<Void, Void, String>()
+    {
+
+        override fun doInBackground(vararg params: Void?): String
+        {
+
+            RecyclerGeneros.layoutManager = LinearLayoutManager(applicationContext)
+            RecyclerGeneros.setItemViewCacheSize(9)
+            RecyclerGeneros.adapter = adapter
+
+            Thread.sleep(1000)
+
+            return "Carregado"
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+
+            RecyclerGeneros.visibility = View.VISIBLE
+            progressBar2.visibility = View.INVISIBLE
+        }
     }
 }
